@@ -1,0 +1,43 @@
+Please analyze the following incident and generate a comprehensive post-mortem report:
+
+## INCIDENT DETAILS
+
+**Title:** {{TITLE}}
+
+**Date:** {{DATE}}
+
+**Duration:** {{DURATION}}
+
+**Initial Severity:** {{SEVERITY}}
+
+**Affected Systems:** {{AFFECTED_SYSTEMS}}
+
+## INCIDENT DESCRIPTION
+
+{{DESCRIPTION}}
+
+## TIMELINE OF EVENTS
+
+{{TIMELINE}}
+
+## RESOLUTION
+
+{{RESOLUTION}}
+
+## ADDITIONAL CONTEXT
+
+{{ADDITIONAL_CONTEXT}}
+
+---
+
+Based on this information, generate a complete post-mortem report following the JSON schema provided. Ensure:
+
+1. The executive summary is concise but captures the essence of the incident
+2. The root cause analysis goes deep enough to identify systemic issues
+3. Contributing factors are distinct from the root cause
+4. Timeline entries are clear and in chronological order
+5. Impact assessment is realistic based on the data provided
+6. Action items are specific, prioritized, and have clear ownership
+7. "What went well" acknowledges positive aspects of the response
+
+Remember: Be blameless, be thorough, and focus on learning and improvement.

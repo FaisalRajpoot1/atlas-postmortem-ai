@@ -1,0 +1,20 @@
+{
+  "title": "Payment Gateway Timeout",
+  "date": "2026-01-20",
+  "duration": "1 hour 15 minutes",
+  "severity": "P0",
+  "affectedSystems": ["Payment Service", "Checkout Flow", "Order Processing"],
+  "description": "All payment transactions started failing with timeout errors at 09:30 UTC. Users were unable to complete any purchases. Our payment provider's API was returning 504 Gateway Timeout errors for all requests.\n\nRevenue impact was immediate and significant. Customer support received over 500 tickets within the first 30 minutes. The issue was ultimately traced to an expired SSL certificate on our payment provider's side.",
+  "timeline": [
+    { "time": "09:30 UTC", "event": "First payment failure alerts received" },
+    { "time": "09:32 UTC", "event": "P0 incident declared, war room opened" },
+    { "time": "09:35 UTC", "event": "Confirmed 100% payment failure rate" },
+    { "time": "09:40 UTC", "event": "Contacted payment provider support" },
+    { "time": "09:55 UTC", "event": "Provider confirmed SSL certificate expiration" },
+    { "time": "10:15 UTC", "event": "Provider deployed certificate renewal" },
+    { "time": "10:30 UTC", "event": "Payments started processing successfully" },
+    { "time": "10:45 UTC", "event": "All systems confirmed operational" }
+  ],
+  "resolution": "Issue was on the payment provider's side - an SSL certificate expired without automatic renewal. Provider renewed the certificate and implemented monitoring to prevent future occurrences.",
+  "additionalContext": "We have since added SSL certificate expiration monitoring for all our vendors' endpoints as part of our external dependency checks."
+}

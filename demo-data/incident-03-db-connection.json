@@ -1,0 +1,21 @@
+{
+  "title": "Database Connection Pool Exhaustion",
+  "date": "2026-01-25",
+  "duration": "3 hours 20 minutes",
+  "severity": "P1",
+  "affectedSystems": ["User Service", "Authentication", "Session Management", "API Gateway"],
+  "description": "Starting at 11:00 UTC, users began experiencing intermittent failures across multiple services. Investigation revealed that our primary PostgreSQL database connection pool was completely exhausted. New connections were being rejected, causing cascade failures across services.\n\nThe root cause was a slow query that was holding connections open for extended periods. This query was part of a new analytics feature deployed the previous day.",
+  "timeline": [
+    { "time": "11:00 UTC", "event": "Intermittent 500 errors reported by users" },
+    { "time": "11:10 UTC", "event": "Monitoring shows connection pool at 100% utilization" },
+    { "time": "11:15 UTC", "event": "Incident escalated to database team" },
+    { "time": "11:30 UTC", "event": "Identified long-running queries from analytics service" },
+    { "time": "11:45 UTC", "event": "Analytics queries terminated manually" },
+    { "time": "12:00 UTC", "event": "Connection pool recovering but still unstable" },
+    { "time": "12:30 UTC", "event": "Analytics feature disabled via feature flag" },
+    { "time": "13:00 UTC", "event": "Database performance normalized" },
+    { "time": "14:20 UTC", "event": "All services confirmed stable" }
+  ],
+  "resolution": "Disabled the new analytics feature that was causing slow queries. The queries were missing proper indexes and had no query timeout configured. Fixed version was deployed 3 days later with proper indexes, query timeouts, and connection pooling at the application level.",
+  "additionalContext": "Query review process has been updated to include performance testing with production-scale data. All new queries must demonstrate acceptable performance under load before deployment."
+}

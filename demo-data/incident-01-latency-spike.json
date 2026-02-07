@@ -1,0 +1,20 @@
+{
+  "title": "Trading Platform Latency Spike",
+  "date": "2026-01-15",
+  "duration": "2 hours 45 minutes",
+  "severity": "P1",
+  "affectedSystems": ["Trading API", "User Dashboard", "WebSocket Service"],
+  "description": "During peak trading hours (14:00-17:00 UTC), our trading platform experienced severe latency issues. API response times increased from the normal 50-100ms to over 5 seconds. Users reported inability to execute trades, view real-time prices, and access their portfolios.\n\nThe issue was first detected by our monitoring system when error rates exceeded 5% threshold. Initial investigation pointed to database connection issues, but further analysis revealed a memory leak in the price aggregation service that was introduced in the previous deployment.",
+  "timeline": [
+    { "time": "14:15 UTC", "event": "Monitoring alerts triggered for high API latency" },
+    { "time": "14:20 UTC", "event": "On-call engineer acknowledged and began investigation" },
+    { "time": "14:35 UTC", "event": "Initial hypothesis: database connection issues" },
+    { "time": "14:50 UTC", "event": "Database team confirmed DB is healthy" },
+    { "time": "15:10 UTC", "event": "Memory leak identified in price aggregation service" },
+    { "time": "15:30 UTC", "event": "Decision made to rollback to previous version" },
+    { "time": "15:45 UTC", "event": "Rollback completed, latency returning to normal" },
+    { "time": "16:00 UTC", "event": "Full service recovery confirmed" }
+  ],
+  "resolution": "Rolled back the price aggregation service to the previous stable version. The memory leak was caused by an unbounded cache that grew indefinitely under high load. A fix was developed and tested before being deployed to production 2 days later.",
+  "additionalContext": "This was our first P1 incident in 3 months. The deployment had passed all automated tests but the memory leak only manifested under sustained high load which wasn't adequately covered in our load testing scenarios."
+}
